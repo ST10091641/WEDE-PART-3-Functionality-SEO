@@ -32,4 +32,27 @@ A comprehensive community gardening website built with React, TypeScript, and Ta
 ### Prerequisites
 - Node.js (v18 or higher)
 - npm or yarn
+### Added
+- Complete website with 6 pages (Home, About, Services, Products, Contact, Get Involved)
+- Responsive navigation with mobile hamburger menu
+- SEO implementation with React Helmet
+- Form validation with real-time error messages
+- Soil & Seed database with search functionality
+- Contact form with email simulation
+- Enquiry form with dynamic response messages
+- Interactive UI with animations and transitions
+- Footer with navigation and contact information
+- 404 error page with navigation back to home
+
+### Changed
+- Optimized images with lazy loading
+- Improved accessibility with ARIA labels
+- Enhanced mobile responsiveness
+- Updated color scheme for better contrast
+
+### Fixed
+- Form validation issues
+- Navigation highlighting
+- Image loading performance
+- Mobile menu toggle behavior
 
