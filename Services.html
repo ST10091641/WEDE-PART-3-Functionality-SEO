@@ -1,0 +1,59 @@
+import { Link } from "react-router-dom";
+import servicesImg from "@/assets/services-garden.jpg";
+import { Scissors, Layers, Recycle, TreePine, Droplets, GraduationCap } from "lucide-react";
+
+const services = [
+  { icon: Scissors, title: "Weeding & Pruning", desc: "Regular maintenance to keep your garden beds healthy and weed-free. We handle everything from delicate herb gardens to large vegetable plots." },
+  { icon: Layers, title: "Mulching", desc: "Professional mulching services to retain moisture, suppress weeds, and regulate soil temperature for optimal plant growth." },
+  { icon: Recycle, title: "Composting Setup", desc: "We design and install composting systems tailored to your space, turning kitchen scraps into nutrient-rich garden gold." },
+  { icon: TreePine, title: "Garden Design", desc: "From raised beds to permaculture layouts, we create productive garden designs suited to your soil type and climate." },
+  { icon: Droplets, title: "Irrigation Systems", desc: "Water-efficient drip irrigation installation to ensure your plants get the right amount of water without waste." },
+  { icon: GraduationCap, title: "Workshops & Education", desc: "Hands-on workshops covering soil health, seed starting, pest management, and sustainable gardening practices." },
+];
+
+const Services = () => (
+  <main>
+    {/* Hero */}
+    <section className="relative h-[50vh] flex items-center justify-center overflow-hidden">
+      <img src={servicesImg} alt="Garden maintenance in progress" width={1280} height={720} className="absolute inset-0 w-full h-full object-cover" />
+      <div className="absolute inset-0 bg-secondary/70" />
+      <div className="relative z-10 text-center px-4">
+        <h1 className="font-heading text-4xl md:text-5xl font-extrabold text-secondary-foreground mb-4">Our Services</h1>
+        <p className="text-secondary-foreground/80 text-lg max-w-xl mx-auto">Professional garden maintenance and education for communities</p>
+      </div>
+    </section>
+
+    {/* Services Grid */}
+    <section className="section-padding">
+      <div className="container-main">
+        <h2 className="font-heading text-3xl font-bold text-center mb-12 text-foreground">
+          How We <span className="text-primary">Help</span>
+        </h2>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {services.map((s) => (
+            <div key={s.title} className="bg-card rounded-xl p-8 shadow-md hover:shadow-xl transition-all group">
+              <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-sunshine/30 transition-colors">
+                <s.icon className="h-7 w-7 text-primary" />
+              </div>
+              <h3 className="font-heading font-bold text-xl mb-3 text-foreground">{s.title}</h3>
+              <p className="text-muted-foreground text-sm leading-relaxed">{s.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section className="section-padding bg-primary text-center">
+      <div className="container-main">
+        <h2 className="font-heading text-3xl font-bold text-primary-foreground mb-4">Need Garden Help?</h2>
+        <p className="text-primary-foreground/80 mb-8 max-w-lg mx-auto">
+          Whether you need a one-time cleanup or ongoing maintenance, we're here for you.
+        </p>
+        <Link to="/enquiry" className="btn-cta">Request a Service</Link>
+      </div>
+    </section>
+  </main>
+);
+
+export default Services;

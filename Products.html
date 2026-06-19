@@ -1,0 +1,140 @@
+import { useState } from "react";
+import soilImg from "@/assets/soil-seeds.jpg";
+
+type SoilType = "Clay" | "Sandy" | "Loamy" | "Chalky";
+
+interface PlantInfo {
+  name: string;
+  benefit: string;
+  nutrient: string;
+}
+
+const soilData: Record<SoilType, PlantInfo[]> = {
+  Clay: [
+    { name: "Cabbage", benefit: "Rich in Vitamin C and K, supports immune health", nutrient: "Vitamin C" },
+    { name: "Broccoli", benefit: "High in fibre and antioxidants, promotes digestion", nutrient: "Fibre" },
+    { name: "Sunflowers", benefit: "Seeds are high in Vitamin E and healthy fats", nutrient: "Vitamin E" },
+    { name: "Beans", benefit: "Excellent source of plant-based protein and iron", nutrient: "Protein" },
+  ],
+  Sandy: [
+    { name: "Carrots", benefit: "Rich in Beta-carotene for eye health and immunity", nutrient: "Beta-carotene" },
+    { name: "Potatoes", benefit: "Good source of potassium and Vitamin B6", nutrient: "Potassium" },
+    { name: "Lettuce", benefit: "Low calorie, high in water content and Vitamin A", nutrient: "Vitamin A" },
+    { name: "Radishes", benefit: "Support liver function and contain Vitamin C", nutrient: "Vitamin C" },
+  ],
+  Loamy: [
+    { name: "Tomatoes", benefit: "Packed with lycopene, an antioxidant for heart health", nutrient: "Lycopene" },
+    { name: "Peppers", benefit: "High in Vitamin C and capsaicin for metabolism", nutrient: "Vitamin C" },
+    { name: "Strawberries", benefit: "Rich in antioxidants, manganese and Vitamin C", nutrient: "Antioxidants" },
+    { name: "Spinach", benefit: "Excellent source of iron, calcium and Vitamin K", nutrient: "Iron" },
+  ],
+  Chalky: [
+    { name: "Beetroot", benefit: "Boosts stamina and supports blood pressure", nutrient: "Nitrates" },
+    { name: "Sweet Corn", benefit: "Good source of fibre, B vitamins and magnesium", nutrient: "Magnesium" },
+    { name: "Lavender", benefit: "Calming properties, supports sleep and relaxation", nutrient: "Essential oils" },
+    { name: "Rosemary", benefit: "Anti-inflammatory, supports memory and digestion", nutrient: "Antioxidants" },
+  ],
+};
+
+const soilColors: Record<SoilType, string> = {
+  Clay: "bg-secondary",
+  Sandy: "bg-sunshine",
+  Loamy: "bg-primary",
+  Chalky: "bg-muted",
+};
+
+const Products = () => {
+  const [selected, setSelected] = useState<SoilType>("Loamy");
+
+  return (
+    <main>
+      {/* Hero */}
+      <section className="relative h-[50vh] flex items-center justify-center overflow-hidden">
+        <img src={soilImg} alt="Different soil types in wooden boxes" width={1280} height={720} className="absolute inset-0 w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-primary/70" />
+        <div className="relative z-10 text-center px-4">
+          <h1 className="font-heading text-4xl md:text-5xl font-extrabold text-primary-foreground mb-4">Soil & Seed Database</h1>
+          <p className="text-primary-foreground/80 text-lg max-w-xl mx-auto">
+            Discover which seeds grow best in your soil type and their health benefits
+          </p>
+        </div>
+      </section>
+
+      {/* Filter */}
+      <section className="section-padding">
+        <div className="container-main">
+          <h2 className="font-heading text-3xl font-bold text-center mb-4 text-foreground">
+            Select Your <span className="text-primary">Soil Type</span>
+          </h2>
+          <p className="text-center text-muted-foreground mb-8">
+            Click on a soil type below to see which plants thrive in it.
+          </p>
+
+          <div className="flex flex-wrap justify-center gap-4 mb-12">
+            {(Object.keys(soilData) as SoilType[]).map((soil) => (
+              <button
+                key={soil}
+                onClick={() => setSelected(soil)}
+                className={`font-heading font-bold px-8 py-3 rounded-lg transition-all ${
+                  selected === soil
+                    ? "bg-primary text-primary-foreground shadow-lg scale-105"
+                    : "bg-card text-foreground border-2 border-border hover:border-primary"
+                }`}
+              >
+                {soil} Soil
+              </button>
+            ))}
+          </div>
+
+          {/* Results */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {soilData[selected].map((plant) => (
+              <div
+                key={plant.name}
+                className="bg-card rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all"
+              >
+                <div className={`${soilColors[selected]} h-2`} />
+                <div className="p-6">
+                  <span className="text-xs font-heading font-bold text-primary uppercase tracking-wider">
+                    {selected} Soil
+                  </span>
+                  <h3 className="font-heading font-bold text-xl mt-2 mb-3 text-foreground">{plant.name}</h3>
+                  <p className="text-muted-foreground text-sm mb-4 leading-relaxed">{plant.benefit}</p>
+                  <span className="inline-block bg-primary/10 text-primary font-heading text-xs font-bold px-3 py-1 rounded-full">
+                    {plant.nutrient}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Health benefits */}
+      <section className="section-padding bg-earth-light">
+        <div className="container-main text-center">
+          <h2 className="font-heading text-3xl font-bold mb-4 text-foreground">
+            Why <span className="text-secondary">Grow Your Own?</span>
+          </h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto mb-8">
+            Home-grown produce is fresher, more nutritious, and free from harmful pesticides. Growing your own food also reduces your carbon footprint and builds food security in your community.
+          </p>
+          <div className="grid sm:grid-cols-3 gap-6">
+            {[
+              { stat: "50%", label: "More nutrients in home-grown vs store-bought produce" },
+              { stat: "0 km", label: "Food miles when you grow in your own garden" },
+              { stat: "100%", label: "Control over what goes into your soil and food" },
+            ].map((s) => (
+              <div key={s.label} className="bg-card rounded-xl p-6 shadow-md">
+                <p className="font-heading text-4xl font-extrabold text-primary mb-2">{s.stat}</p>
+                <p className="text-muted-foreground text-sm">{s.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+};
+
+export default Products;

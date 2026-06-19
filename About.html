@@ -1,0 +1,89 @@
+import aboutImg from "@/assets/about-garden.jpg";
+import volunteersImg from "@/assets/volunteers.jpg";
+import { Target, Eye, Users } from "lucide-react";
+
+const values = [
+  { icon: Target, title: "Mission", text: "To cultivate healthy communities by providing the knowledge, tools, and support needed for sustainable gardening, ensuring that every person has access to fresh, nutritious food." },
+  { icon: Eye, title: "Vision", text: "A world where every neighbourhood is self-sufficient, green, and nourished by the food it grows." },
+  { icon: Users, title: "Target Audience", text: "Urban residents (aged 25–65), community centre coordinators, schools looking to start educational gardens, and local volunteers seeking to contribute to food security initiatives." },
+];
+
+const About = () => (
+  <main>
+    {/* Hero */}
+    <section className="relative h-[50vh] flex items-center justify-center overflow-hidden">
+      <img src={aboutImg} alt="Hands planting seedlings in soil" width={1280} height={720} className="absolute inset-0 w-full h-full object-cover" />
+      <div className="absolute inset-0 bg-primary/70" />
+      <div className="relative z-10 text-center px-4">
+        <h1 className="font-heading text-4xl md:text-5xl font-extrabold text-primary-foreground mb-4">About Us</h1>
+        <p className="text-primary-foreground/80 text-lg max-w-xl mx-auto">Our story, our mission, our people</p>
+      </div>
+    </section>
+
+    {/* History */}
+    <section className="section-padding">
+      <div className="container-main grid md:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 className="font-heading text-3xl font-bold mb-4 text-foreground">Our <span className="text-primary">History</span></h2>
+          <p className="text-muted-foreground leading-relaxed mb-4">
+            Founded in 2020, "For the People" began as a small community initiative in response to rising food insecurity and the decline of green spaces in urban areas.
+          </p>
+          <p className="text-muted-foreground leading-relaxed mb-4">
+            What started as a handful of volunteers planting vegetable gardens in vacant lots has grown into a registered non-profit organisation dedicated to empowering communities through hands-on garden maintenance and agricultural education.
+          </p>
+          <p className="text-muted-foreground leading-relaxed">
+            Today we serve multiple communities across South Africa, helping families grow their own nutritious food and building green, resilient neighbourhoods.
+          </p>
+        </div>
+        <img src={volunteersImg} alt="Community volunteers working in a garden" width={1280} height={720} loading="lazy" className="rounded-xl shadow-lg" />
+      </div>
+    </section>
+
+    {/* Mission / Vision / Audience */}
+    <section className="section-padding bg-leaf-light">
+      <div className="container-main">
+        <h2 className="font-heading text-3xl font-bold text-center mb-12 text-foreground">
+          What Drives <span className="text-primary">Us</span>
+        </h2>
+        <div className="grid md:grid-cols-3 gap-8">
+          {values.map((v) => (
+            <div key={v.title} className="bg-card rounded-xl p-8 shadow-md text-center">
+              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                <v.icon className="h-8 w-8 text-primary" />
+              </div>
+              <h3 className="font-heading font-bold text-xl mb-3 text-foreground">{v.title}</h3>
+              <p className="text-muted-foreground text-sm leading-relaxed">{v.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* Team */}
+    <section className="section-padding">
+      <div className="container-main text-center">
+        <h2 className="font-heading text-3xl font-bold mb-4 text-foreground">Our <span className="text-secondary">Team</span></h2>
+        <p className="text-muted-foreground max-w-2xl mx-auto mb-12">
+          Our dedicated team of horticulturists, educators, and community organisers work tirelessly to bring green spaces to every neighbourhood.
+        </p>
+        <div className="grid sm:grid-cols-3 gap-8">
+          {[
+            { name: "Thandi Mokoena", role: "Founder & Director" },
+            { name: "David Nkosi", role: "Head of Education" },
+            { name: "Lerato Dlamini", role: "Community Outreach" },
+          ].map((m) => (
+            <div key={m.name} className="bg-card rounded-xl p-6 shadow-md">
+              <div className="w-20 h-20 rounded-full bg-primary/20 mx-auto mb-4 flex items-center justify-center">
+                <span className="font-heading text-2xl font-bold text-primary">{m.name[0]}</span>
+              </div>
+              <h3 className="font-heading font-bold text-lg text-foreground">{m.name}</h3>
+              <p className="text-muted-foreground text-sm">{m.role}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+);
+
+export default About;

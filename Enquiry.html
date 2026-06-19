@@ -1,0 +1,129 @@
+import { useState } from "react";
+import volunteersImg from "@/assets/volunteers.jpg";
+import { Heart, HandHelping, Calendar } from "lucide-react";
+
+const Enquiry = () => {
+  const [formData, setFormData] = useState({
+    name: "", email: "", phone: "", type: "volunteer", message: "",
+  });
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitted(true);
+  };
+
+  return 
+    <main>
+      {/* Hero */}
+      <section className="relative h-[50vh] flex items-center justify-center overflow-hidden">
+        <img src={volunteersImg} alt="Volunteers working in community garden" width={1280} height={720} className="absolute inset-0 w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-secondary/70" />
+        <div className="relative z-10 text-center px-4">
+          <h1 className="font-heading text-4xl md:text-5xl font-extrabold text-secondary-foreground mb-4">Get Involved</h1>
+          <p className="text-secondary-foreground/80 text-lg max-w-xl mx-auto">
+            Volunteer, donate, or sponsor — every contribution helps grow healthier communities
+          </p>
+        </div>
+      </section>
+
+      {/* Ways to help */}
+      <section className="section-padding bg-leaf-light">
+        <div className="container-main">
+          <div className="grid md:grid-cols-3 gap-8 mb-16">
+            {[
+              { icon: HandHelping, title: "Volunteer", desc: "Join us in the gardens! We welcome volunteers of all skill levels for planting, weeding, and education events." },
+              { icon: Heart, title: "Donate", desc: "Your financial support helps us buy seeds, tools, and supplies for communities in need." },
+              { icon: Calendar, title: "Sponsor an Event", desc: "Sponsor a community planting day, workshop, or school garden project." },
+            ].map((w) => (
+              <div key={w.title} className="bg-card rounded-xl p-8 shadow-md text-center">
+                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                  <w.icon className="h-8 w-8 text-primary" />
+                </div>
+                <h3 className="font-heading font-bold text-xl mb-3 text-foreground">{w.title}</h3>
+                <p className="text-muted-foreground text-sm">{w.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Form */}
+      <section className="section-padding">
+        <div className="container-main max-w-2xl">
+          <h2 className="font-heading text-3xl font-bold text-center mb-8 text-foreground">
+            Sign Up <span className="text-primary">Today</span>
+          </h2>
+
+          {submitted ? (
+            <div className="bg-primary/10 rounded-xl p-8 text-center">
+              <h3 className="font-heading text-2xl font-bold text-primary mb-2">Thank You!</h3>
+              <p className="text-muted-foreground">We've received your enquiry and will be in touch soon.</p>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="bg-card rounded-xl p-8 shadow-md space-y-6">
+              <div>
+                <label className="block font-heading font-semibold text-sm mb-2 text-foreground">Full Name *</label>
+                <input
+                  required
+                  type="text"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground focus:ring-2 focus:ring-primary focus:border-primary outline-none"
+                  placeholder="Your full name"
+                />
+              </div>
+              <div className="grid sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block font-heading font-semibold text-sm mb-2 text-foreground">Email *</label>
+                  <input
+                    required
+                    type="email"
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground focus:ring-2 focus:ring-primary focus:border-primary outline-none"
+                    placeholder="your@email.com"
+                  />
+                </div>
+                <div>
+                  <label className="block font-heading font-semibold text-sm mb-2 text-foreground">Phone</label>
+                  <input
+                    type="tel"
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground focus:ring-2 focus:ring-primary focus:border-primary outline-none"
+                    placeholder="+27 ..."
+                  />
+                </div>
+              </div>
+              <div>
+                <label className="block font-heading font-semibold text-sm mb-2 text-foreground">I want to *</label>
+                <select
+                  value={formData.type}
+                  onChange={(e) => setFormData({ ...formData, type: e.target.value })}
+                  className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground focus:ring-2 focus:ring-primary focus:border-primary outline-none"
+                >
+                  <option value="volunteer">Become a Volunteer</option>
+                  <option value="donate">Make a Donation</option>
+                  <option value="sponsor">Sponsor an Event</option>
+                  <option value="service">Request a Service</option>
+                </select>
+              </div>
+              <div>
+                <label className="block font-heading font-semibold text-sm mb-2 text-foreground">Message</label>
+                <textarea
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  rows={4}
+                  className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground focus:ring-2 focus:ring-primary focus:border-primary outline-none resize-none"
+                  placeholder="Tell us how you'd like to get involved..."
+                />
+              </div>
+              <button type="submit" className="btn-cta w-full text-center">Submit Enquiry</button>
+            </form>
+          
+        </div>
+      </section>
+    </main>
+ 
+export default Enquiry;

@@ -1,0 +1,47 @@
+import { useState, ReactNode } from "react";
+
+export interface TabDef {
+  key: string;
+  label: string;
+  colorClass?: string;
+}
+
+interface TabsProps {
+  tabs: TabDef[];
+  defaultKey?: string;
+  children: (activeKey: string) => ReactNode;
+}
+
+const Tabs = ({ tabs, defaultKey, children }: TabsProps) => {
+  const [active, setActive] = useState(defaultKey ?? tabs[0]?.key);
+
+  return (
+    <div>
+      <div role="tablist" aria-label="Soil type tabs" className="flex flex-wrap gap-2 mb-8">
+        {tabs.map((t) => {
+          const isActive = active === t.key;
+          return (
+            <button
+              key={t.key}
+              role="tab"
+              aria-selected={isActive}
+              onClick={() => setActive(t.key)}
+              className={`px-5 py-2.5 rounded-full font-heading font-semibold text-sm transition-all duration-200 border ${
+                isActive
+                  ? "bg-primary text-primary-foreground border-primary shadow-sm"
+                  : "bg-card text-foreground border-border hover:border-primary/50"
+              }`}
+            >
+              {t.label}
+            </button>
+          );
+        })}
+      </div>
+      <div role="tabpanel" className="animate-fade-in">
+        {children(active)}
+      </div>
+    </div>
+  );
+};
+
+export default Tabs;

@@ -1,0 +1,60 @@
+import { useEffect, useRef } from "react";
+import { X } from "lucide-react";
+
+interface ModalProps {
+  open: boolean;
+  onClose: () => void;
+  title?: string;
+  children: React.ReactNode;
+}
+
+const Modal = ({ open, onClose, title, children }: ModalProps) => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [open, onClose]);
+
+  if (!open) return null;
+
+  return (
+    <div
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-foreground/60 backdrop-blur-sm p-4 animate-fade-in"
+      role="dialog"
+      aria-modal="true"
+      aria-label={title}
+      onMouseDown={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+    >
+      <div
+        ref={ref}
+        className="bg-card rounded-xl shadow-2xl max-w-lg w-full max-h-[85vh] overflow-y-auto"
+      >
+        <div className="flex items-center justify-between px-6 py-4 border-b border-border">
+          {title && <h3 className="font-heading font-bold text-lg text-foreground">{title}</h3>}
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close dialog"
+            className="p-1.5 rounded-full hover:bg-muted transition-colors ml-auto"
+          >
+            <X className="h-5 w-5" />
+          </button>
+        </div>
+        <div className="p-6">{children}</div>
+      </div>
+    </div>
+  );
+};
+
+export default Modal;
